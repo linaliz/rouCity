@@ -1,0 +1,31 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "b2982a43-a168-43cb-b97a-ded74b65d6b1": {
+      "ProjectGuid": "b2982a43-a168-43cb-b97a-ded74b65d6b1",
+      "DisplayName": "RCITYWEB",
+      "ColorIndex": 0
+    },
+    "3b4d94ce-02e1-4504-9673-9ba57c87b823": {
+      "ProjectGuid": "3b4d94ce-02e1-4504-9673-9ba57c87b823",
+      "DisplayName": "RCITYDDBB",
+      "ColorIndex": 1
+    },
+    "6837a465-02a4-4593-9d1c-1e46f9280533": {
+      "ProjectGuid": "6837a465-02a4-4593-9d1c-1e46f9280533",
+      "DisplayName": "ROUCITY",
+      "ColorIndex": 2
+    },
+    "7294e48c-c328-4b05-a057-a5f78fbf07b1": {
+      "ProjectGuid": "7294e48c-c328-4b05-a057-a5f78fbf07b1",
+      "DisplayName": "DBRouCity",
+      "ColorIndex": 3
+    },
+    "3d23664d-7f35-4dca-83c0-fff5a7f4c52c": {
+      "ProjectGuid": "3d23664d-7f35-4dca-83c0-fff5a7f4c52c",
+      "DisplayName": "DBRouCity",
+      "ColorIndex": 4
+    }
+  },
+  "NextColorIndex": 5
+}

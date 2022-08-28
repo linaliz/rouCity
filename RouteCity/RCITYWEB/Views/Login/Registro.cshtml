@@ -1,0 +1,64 @@
+﻿@model RCITYWEB.ViewModels.UsuarioViewModel
+@{
+    ViewBag.Title = "Nueva";
+    ViewBag.Act = "Crear Usuario";
+    if (ViewBag.accion == "Editar")
+    {
+        ViewBag.Act = "Editar Usuario";
+        ViewBag.Title = "Editar";
+    }
+}
+<div class="container">
+    <div class="row d-flex  justify-content-center">
+        <div class="col-6 p-5 border rounded bg-light">
+            <h4 class="text-muted text-center">Registro usuario</h4>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="col p-0 form-group">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @id = "nombre" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+                <div class="col p-0 form-group">
+                    <label for="apellido" class="form-label">Apellidos</label>
+                    @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "form-control", @id = "apellido" } })
+                    @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
+                </div>
+                <div class="col p-0 form-group">
+                    <label for="correo" class="form-label">Correo Electrónico</label>
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "correo" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+                <span class="text-danger">@ViewBag.errorMailUnique</span>
+                <div class="col p-0 form-group">
+                    <label for="pass" class="form-label">Contraseña</label>
+                    @Html.EditorFor(model => model.Pass, new { htmlAttributes = new { @class = "form-control", @id = "pass" } })
+                    @Html.ValidationMessageFor(model => model.Pass, "", new { @class = "text-danger" })
+                </div>
+                <div class="col p-0 form-group">
+                    <label for="pass" class="form-label">Confirma Contraseña</label>
+                    @Html.EditorFor(model => model.ConfirmarPass, new { htmlAttributes = new { @class = "form-control", @id = "pass" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmarPass, "", new { @class = "text-danger" })
+                </div>
+                <div class="col p-0 form-group">
+                    <label for="pass" class="form-label">Teléfono</label>
+                    @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", @id = "pass" } })
+                    @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+                </div>
+                <span class="text-danger">@ViewBag.errorPassMin</span>
+
+                <div class="col form-group btn-group p-0">
+                    @Html.ActionLink("Volver", "index", "home", null, new { @class = " btn btn-sm btn-secondary mr-1" })
+                    <button class="btn btn-sm btn-success ml-1" type="submit">Crear</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Concerta tu Viaje</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <header>
+            @*Logotipo + Menu*@
+            <div class="nav row rounded-top align-items-stretch justify-content-between" id="navegacion">
+                @*Logo*@
+                <div class="col-md-12 col-lg logo d-flex align-items-center justify-content-center justify-content-lg-start ">
+                    <a href="@Url.Action("index","Home")">
+                        <img src="~/Content/img/logo.png" alt="Logo">
+                    </a>
+                </div>
+                @*Fórmulario de Busqueda*@
+                <div class="col-12 col-lg-4 formBusqueda d-flex align-items-center justify-content-center justify-content-lg-start">
+                    <div class="input-group">
+                        <input type="search" class="form-control  rounded px-3" placeholder="Dirección de Inicio" aria-label="Search 1"
+                               aria-describedby="search-addon" />
+                        <input type="search" class="form-control rounded" placeholder="Dirección de Destino" aria-label="Search 2"
+                               aria-describedby="search-addon" />
+                        <button type="button" class="btn btn-outline-success">search</button>
+                    </div>
+                </div>
+                @*Menu*@
+                <nav class="navbar col-md-12 col-lg-auto menu d-flex align-items-stretch flex-sm-nowrap ">
+                    @if (Request.Cookies["Sesion"] != null)
+                    {
+                        <div class="c-1 verde d-flex align-items-center">
+                            <i class="icono icon-search"></i>
+                            @Html.ActionLink("Buscar", "Index", "Home", null, new { @class = "verde d-flex flex-row text-center" })
+                        </div>
+                        <div class="c-2 oscuro d-flex align-items-center">
+                            <i class="icono icon-bus"></i>
+                            @Html.ActionLink("Publicar Viaje", "Index", "Home", null, new { @class = " verde d-flex flex-row text-center" })
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn  btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Área Personal <span class="caret"></span></button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li>@Html.ActionLink("Publicar Viaje", "Cerrar", "Login", null, new { @class = " verde d-flex flex-row text-center" })</li>
+
+                                <li><a href="#" data-toggle="modal" data-target="#modal2">Perfil</a></li>
+                                <li><a href="~/Login/Cerrar" data-toggle="modal" data-target="#modal2">Cerrar</a></li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="c-1 oscuro d-flex align-items-center">
+                            @*<i class="icono icon-bus"></i>*@
+                            @Html.ActionLink("Login", "login", "login", null, new { @class = " btn btn-secondary p-2 mr-2" })
+                        </div>
+                        <div class="c-2 verde d-flex align-items-center">
+                            @*<i class="icono icon-user"></i>*@
+                            @Html.ActionLink("Registro", "registro", "login", null, new { @class = " btn btn-secondary p-2 mr-2" })
+                            @*<button class="btn  btn-success p-2" type="button" id="registro">Registrate </button>*@
+                        </div>
+                    }
+                </nav>
+            </div>
+        </header>
+        @RenderBody()
+             <footer>
+            <div class="row">
+                <div class="col pt-3">
+                    <p class="text-center text-success m-0">
+                        Copyright &copy; @DateTime.Now.Year - RouteCity. todos los derechos
+                        reservados.
+                    </p>
+                    <ul class="list-unstyled d-flex flex-wrap flex-sm-nowrap justify-content-center m-0">
+                        <li class="p-2">
+                            <a href=""><small class="text-secondary">Politica de privacidad y aviso legal</small></a>
+                        </li>
+                        <li class="p-2">
+                            <a href=""><small class="text-secondary">Terminos de uso</small></a>
+                        </li>
+                        <li class="p-2">
+                            <a href=""><small class="text-secondary">Politica de calidad</small></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </footer>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+       
+
+    </div>
+    
+</body>
+
+</html>
+ 

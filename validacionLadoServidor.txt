@@ -1,0 +1,140 @@
+   public static class ValidarCampos
+    {
+        public static Respuesta ValidarString(string nombreCampo, string valor, Respuesta respuesta, int? longitudMaxima = 0, int? longitudMinima = 0, bool? obligatorio = false, bool? permiteEspacios = true, bool? esEmail = false
+            , bool? esTelefono = false)
+        {
+            if (valor != null)
+                valor = valor.Trim();
+
+            if (obligatorio == true && string.IsNullOrWhiteSpace(valor))
+                respuesta.Errores.Add("El campo " + nombreCampo + " es obligatorio.");
+            else
+            {
+                if (string.IsNullOrWhiteSpace(valor) == false && valor.Length < longitudMinima)
+                    respuesta.Errores.Add("El campo " + nombreCampo + " tiene que tener al menos " + longitudMinima + " caracteres.");
+
+                if (string.IsNullOrWhiteSpace(valor) == false && (longitudMaxima > 0 && (valor.Length > longitudMaxima)))
+                    respuesta.Errores.Add("El campo " + nombreCampo + " tiene que tener un maximo de " + longitudMaxima + " caracteres.");
+
+                if (string.IsNullOrWhiteSpace(valor) == false && (esEmail == true && !EmailValido(valor)))
+                    respuesta.Errores.Add("El campo " + nombreCampo + " debe contener un email válido.");
+
+                if (string.IsNullOrWhiteSpace(valor) == false && (permiteEspacios == false && ValidarEspacios(valor)))
+                    respuesta.Errores.Add("El campo " + nombreCampo + " no debe contener espacios en blanco.");
+
+                if (string.IsNullOrWhiteSpace(valor) == false && (esTelefono == true && !TelefonoValido(valor)))
+                    respuesta.Errores.Add("El campo " + nombreCampo + " debe contener un teléfono válido.");
+            }
+
+            if (respuesta.Errores.Count > 0)
+                respuesta.Ok = false;
+
+            return respuesta;
+        }
+        public static bool ValidarEspacios(string valor)
+        {
+            if (valor.IndexOf(" ") != -1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private static bool EmailValido(string valor)
+        {
+            return Regex.IsMatch(valor, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
+        }
+        public static Respuesta ValidarSelect2NoNulo(string nombreCampo, string idDelSelect, Respuesta respuesta)
+        {
+            int idDelSelectInt = Int32.Parse(idDelSelect);
+            if (idDelSelectInt == 0)
+            {
+                /*respuesta.Errores.Add("Es necesario seleccionar un/a " + nombreCampo);*/
+                respuesta.Errores.Add("El campo " + nombreCampo + " es obligatorio.");
+
+            }
+            if (respuesta.Errores.Count > 0)
+                respuesta.Ok = false;
+
+            return respuesta;
+
+        }
+        private static bool TelefonoValido(string valor)
+        {
+            //Valida teléfonos móviles (6,7) y fijos (8,9) españoles, con o sin prefijo español (+34, 0034, 34), sin separar o separados por espacios o guiones.
+
+            return Regex.IsMatch(valor, @"(\+34|0034|34)?[ -]*(6|7|8|9)[ -]*([0-9][ -]*){8}$");
+        }
+***Otra clase necesaria
+  public class Respuesta
+    {
+        public Respuesta()
+        {
+            Ok = true;
+            Errores = new List<string>();
+        }
+        public bool Ok { get; set; }
+       
+        public List<String> Errores { get; set; }
+        public CodigoDescripcion<String> Mensaje { get; set; }
+
+    }
+}
+
+***Otra clase necesaria
+public class CodigoDescripcion<T> : IEqualityComparer<CodigoDescripcion<T>>
+    {
+        public CodigoDescripcion() { }
+        public CodigoDescripcion(T key, string value)
+        {
+            this.Key = key;
+            this.Value = value;
+        }
+
+        public T Key { get; set; }
+        public string Value { get; set; }
+
+
+
+
+
+        #region IEqualityComparer
+        public bool Equals(CodigoDescripcion<T> x, CodigoDescripcion<T> y)
+        {
+            //Check whether the compared objects reference the same data.
+            if (Object.ReferenceEquals(x, y)) return true;
+
+            //Check whether any of the compared objects is null.
+            if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
+                return false;
+
+            //Check whether the products' properties are equal.
+            return
+                x.Key.Equals(y.Key)
+                && x.Value == y.Value;
+        }
+
+        public int GetHashCode(CodigoDescripcion<T> obj)
+        {
+            int hashKey = obj.Key == null ? 0 : obj.Key.GetHashCode();
+            int hashValue = obj.Value == null ? 0 : obj.Value.GetHashCode();
+
+            return hashKey ^ hashValue;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is CodigoDescripcion<T>)
+                return this.Equals(this, (CodigoDescripcion<T>)obj);
+            else
+                return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.GetHashCode(this);
+        }
+        #endregion
+    }

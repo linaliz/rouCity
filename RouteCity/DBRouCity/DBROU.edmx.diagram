@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d48d1a5de10a4b349dc6f7705900722a" Name="Diagram1">
+        <EntityTypeShape EntityType="RouCityModel.Rol" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RouCityModel.Accion" Width="1.5" PointX="2.625" PointY="0.5" />
+        <EntityTypeShape EntityType="RouCityModel.Modulo" Width="1.5" PointX="2.625" PointY="6.75" />
+        <EntityTypeShape EntityType="RouCityModel.Pago" Width="1.5" PointX="9.375" PointY="9.125" />
+        <EntityTypeShape EntityType="RouCityModel.RolAccion" Width="1.5" PointX="4.875" PointY="1.5" />
+        <EntityTypeShape EntityType="RouCityModel.Valoracion" Width="1.5" PointX="12.375" PointY="9.375" />
+        <EntityTypeShape EntityType="RouCityModel.Viaje" Width="1.5" PointX="7.125" PointY="11.625" />
+        <EntityTypeShape EntityType="RouCityModel.ViajePasajero" Width="1.5" PointX="12.375" PointY="12.625" />
+        <AssociationConnector Association="RouCityModel.FK_Accion_Modulo" />
+        <AssociationConnector Association="RouCityModel.FK_RolAccion_Accion" />
+        <AssociationConnector Association="RouCityModel.FK_Pago_viaje" />
+        <AssociationConnector Association="RouCityModel.FK_RolAccion_Rol" />
+        <AssociationConnector Association="RouCityModel.FK_valoracion_viaje1" />
+        <AssociationConnector Association="RouCityModel.FK_viajePasajero_viaje" />
+        <EntityTypeShape EntityType="RouCityModel.Usuario" Width="1.5" PointX="3" PointY="9.5" />
+        <AssociationConnector Association="RouCityModel.FK_Pago_Usuario" />
+        <AssociationConnector Association="RouCityModel.FK_Usuario_Rol" />
+        <AssociationConnector Association="RouCityModel.FK_valoracion_Usuario" />
+        <AssociationConnector Association="RouCityModel.FK_viaje_Usuario" />
+        <AssociationConnector Association="RouCityModel.FK_viajePasajero_Usuario" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

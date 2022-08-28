@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+
+
+    @RenderBody()
+    <footer>
+        <div class="row">
+            <div class="col pt-3">
+                <p class="text-center text-success m-0">
+                    Copyright &copy; @DateTime.Now.Year - RouteCity. todos los derechos
+                    reservados.
+                </p>
+                <ul class="list-unstyled d-flex flex-wrap flex-sm-nowrap justify-content-center m-0">
+                    <li class="p-2">
+                        <a href=""><small class="text-secondary">Politica de privacidad y aviso legal</small></a>
+                    </li>
+                    <li class="p-2">
+                        <a href=""><small class="text-secondary">Terminos de uso</small></a>
+                    </li>
+                    <li class="p-2">
+                        <a href=""><small class="text-secondary">Politica de calidad</small></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </footer>
+</body>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</html>

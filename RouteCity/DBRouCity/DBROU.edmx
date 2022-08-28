@@ -1,0 +1,760 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RouCityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Accion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="idModulo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Modulo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="idPago" />
+          </Key>
+          <Property Name="idPago" Type="int" Nullable="false" />
+          <Property Name="importe" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="tipoPasarela" Type="char" MaxLength="1" />
+          <Property Name="idViaje" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Anulado" Type="bit" />
+          <Property Name="motivoAnulado" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RolAccion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idRol" Type="int" />
+          <Property Name="idAccion" Type="int" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="apellidos" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="foto" Type="image" />
+          <Property Name="email" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="pass" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="fechaAlta" Type="datetime" />
+          <Property Name="sexo" Type="char" MaxLength="1" />
+          <Property Name="fechaNacimiento" Type="datetime" />
+          <Property Name="Telefono" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="descripción" Type="varchar" MaxLength="250" />
+          <Property Name="preferencia" Type="varchar" MaxLength="250" />
+          <Property Name="numeroCuenta" Type="char" MaxLength="24" />
+          <Property Name="hash" Type="varchar" MaxLength="100" />
+          <Property Name="confirmado" Type="bit" Nullable="false" />
+          <Property Name="idrol" Type="int" Nullable="false" />
+          <Property Name="baja" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Valoracion">
+          <Key>
+            <PropertyRef Name="idvaloracion" />
+          </Key>
+          <Property Name="idvaloracion" Type="int" Nullable="false" />
+          <Property Name="idusuario" Type="int" Nullable="false" />
+          <Property Name="idviaje" Type="int" Nullable="false" />
+          <Property Name="valoracionEstrellas" Type="int" Nullable="false" />
+          <Property Name="reseña" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Viaje">
+          <Key>
+            <PropertyRef Name="idViaje" />
+          </Key>
+          <Property Name="idViaje" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUChofer" Type="int" Nullable="false" />
+          <Property Name="latOrigen" Type="decimal" Precision="18" Scale="15" Nullable="false" />
+          <Property Name="longOrigen" Type="decimal" Precision="18" Scale="15" Nullable="false" />
+          <Property Name="latDestino" Type="decimal" Precision="18" Scale="15" Nullable="false" />
+          <Property Name="longDestino" Type="decimal" Precision="18" Scale="15" Nullable="false" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="precio" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="hora" Type="time" Precision="7" Nullable="false" />
+          <Property Name="cocheDescripcion" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="asientosDisponibles" Type="int" Nullable="false" />
+          <Property Name="calificacion" Type="smallint" />
+          <Property Name="comentario" Type="text" />
+          <Property Name="cantParada" Type="smallint" />
+          <Property Name="tiempoParada" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="estado" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ViajePasajero">
+          <Key>
+            <PropertyRef Name="idViaje" />
+            <PropertyRef Name="idPasajero" />
+          </Key>
+          <Property Name="idViaje" Type="int" Nullable="false" />
+          <Property Name="idPasajero" Type="int" Nullable="false" />
+          <Property Name="confirmado" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Accion_Modulo">
+          <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+          <End Role="Accion" Type="Self.Accion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Accion">
+              <PropertyRef Name="idModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pago_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pago_viaje">
+          <End Role="Viaje" Type="Self.Viaje" Multiplicity="1" />
+          <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Viaje">
+              <PropertyRef Name="idViaje" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="idViaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolAccion_Accion">
+          <End Role="Accion" Type="Self.Accion" Multiplicity="0..1" />
+          <End Role="RolAccion" Type="Self.RolAccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RolAccion">
+              <PropertyRef Name="idAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolAccion_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="RolAccion" Type="Self.RolAccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="RolAccion">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_valoracion_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Valoracion" Type="Self.Valoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Valoracion">
+              <PropertyRef Name="idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_valoracion_viaje1">
+          <End Role="Viaje" Type="Self.Viaje" Multiplicity="1" />
+          <End Role="Valoracion" Type="Self.Valoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Viaje">
+              <PropertyRef Name="idViaje" />
+            </Principal>
+            <Dependent Role="Valoracion">
+              <PropertyRef Name="idviaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_viaje_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Viaje" Type="Self.Viaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Viaje">
+              <PropertyRef Name="idUChofer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_viajePasajero_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ViajePasajero" Type="Self.ViajePasajero" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ViajePasajero">
+              <PropertyRef Name="idPasajero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_viajePasajero_viaje">
+          <End Role="Viaje" Type="Self.Viaje" Multiplicity="1" />
+          <End Role="ViajePasajero" Type="Self.ViajePasajero" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Viaje">
+              <PropertyRef Name="idViaje" />
+            </Principal>
+            <Dependent Role="ViajePasajero">
+              <PropertyRef Name="idViaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RouCityModelStoreContainer">
+          <EntitySet Name="Accion" EntityType="Self.Accion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Modulo" EntityType="Self.Modulo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolAccion" EntityType="Self.RolAccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Valoracion" EntityType="Self.Valoracion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Viaje" EntityType="Self.Viaje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ViajePasajero" EntityType="Self.ViajePasajero" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Accion_Modulo" Association="Self.FK_Accion_Modulo">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Accion" EntitySet="Accion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pago_Usuario" Association="Self.FK_Pago_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pago_viaje" Association="Self.FK_Pago_viaje">
+            <End Role="Viaje" EntitySet="Viaje" />
+            <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolAccion_Accion" Association="Self.FK_RolAccion_Accion">
+            <End Role="Accion" EntitySet="Accion" />
+            <End Role="RolAccion" EntitySet="RolAccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolAccion_Rol" Association="Self.FK_RolAccion_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="RolAccion" EntitySet="RolAccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_valoracion_Usuario" Association="Self.FK_valoracion_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Valoracion" EntitySet="Valoracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_valoracion_viaje1" Association="Self.FK_valoracion_viaje1">
+            <End Role="Viaje" EntitySet="Viaje" />
+            <End Role="Valoracion" EntitySet="Valoracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_viaje_Usuario" Association="Self.FK_viaje_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Viaje" EntitySet="Viaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_viajePasajero_Usuario" Association="Self.FK_viajePasajero_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ViajePasajero" EntitySet="ViajePasajero" />
+          </AssociationSet>
+          <AssociationSet Name="FK_viajePasajero_viaje" Association="Self.FK_viajePasajero_viaje">
+            <End Role="Viaje" EntitySet="Viaje" />
+            <End Role="ViajePasajero" EntitySet="ViajePasajero" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RouCityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RolAccion" Relationship="RouCityModel.FK_RolAccion_Rol" FromRole="Rol" ToRole="RolAccion" />
+          <NavigationProperty Name="Usuario" Relationship="RouCityModel.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityContainer Name="RouCityEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="Accion" EntityType="RouCityModel.Accion" />
+          <EntitySet Name="Modulo" EntityType="RouCityModel.Modulo" />
+          <EntitySet Name="Pago" EntityType="RouCityModel.Pago" />
+          <EntitySet Name="RolAccion" EntityType="RouCityModel.RolAccion" />
+          <EntitySet Name="Valoracion" EntityType="RouCityModel.Valoracion" />
+          <EntitySet Name="Viaje" EntityType="RouCityModel.Viaje" />
+          <EntitySet Name="ViajePasajero" EntityType="RouCityModel.ViajePasajero" />
+          <AssociationSet Name="FK_Accion_Modulo" Association="RouCityModel.FK_Accion_Modulo">
+            <End Role="Modulo" EntitySet="Modulo" />
+            <End Role="Accion" EntitySet="Accion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolAccion_Accion" Association="RouCityModel.FK_RolAccion_Accion">
+            <End Role="Accion" EntitySet="Accion" />
+            <End Role="RolAccion" EntitySet="RolAccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pago_viaje" Association="RouCityModel.FK_Pago_viaje">
+            <End Role="Viaje" EntitySet="Viaje" />
+            <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolAccion_Rol" Association="RouCityModel.FK_RolAccion_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="RolAccion" EntitySet="RolAccion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_valoracion_viaje1" Association="RouCityModel.FK_valoracion_viaje1">
+            <End Role="Viaje" EntitySet="Viaje" />
+            <End Role="Valoracion" EntitySet="Valoracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_viajePasajero_viaje" Association="RouCityModel.FK_viajePasajero_viaje">
+            <End Role="Viaje" EntitySet="Viaje" />
+            <End Role="ViajePasajero" EntitySet="ViajePasajero" />
+          </AssociationSet>
+          <EntitySet Name="Usuario" EntityType="RouCityModel.Usuario" />
+          <AssociationSet Name="FK_Pago_Usuario" Association="RouCityModel.FK_Pago_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Pago" EntitySet="Pago" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usuario_Rol" Association="RouCityModel.FK_Usuario_Rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_valoracion_Usuario" Association="RouCityModel.FK_valoracion_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Valoracion" EntitySet="Valoracion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_viaje_Usuario" Association="RouCityModel.FK_viaje_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Viaje" EntitySet="Viaje" />
+          </AssociationSet>
+          <AssociationSet Name="FK_viajePasajero_Usuario" Association="RouCityModel.FK_viajePasajero_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ViajePasajero" EntitySet="ViajePasajero" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Accion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="idModulo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Modulo" Relationship="RouCityModel.FK_Accion_Modulo" FromRole="Accion" ToRole="Modulo" />
+          <NavigationProperty Name="RolAccion" Relationship="RouCityModel.FK_RolAccion_Accion" FromRole="Accion" ToRole="RolAccion" />
+        </EntityType>
+        <EntityType Name="Modulo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Accion" Relationship="RouCityModel.FK_Accion_Modulo" FromRole="Modulo" ToRole="Accion" />
+        </EntityType>
+        <EntityType Name="Pago">
+          <Key>
+            <PropertyRef Name="idPago" />
+          </Key>
+          <Property Name="idPago" Type="Int32" Nullable="false" />
+          <Property Name="importe" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="tipoPasarela" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="idViaje" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Anulado" Type="Boolean" />
+          <Property Name="motivoAnulado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Viaje" Relationship="RouCityModel.FK_Pago_viaje" FromRole="Pago" ToRole="Viaje" />
+          <NavigationProperty Name="Usuario" Relationship="RouCityModel.FK_Pago_Usuario" FromRole="Pago" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="RolAccion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idRol" Type="Int32" />
+          <Property Name="idAccion" Type="Int32" />
+          <NavigationProperty Name="Accion" Relationship="RouCityModel.FK_RolAccion_Accion" FromRole="RolAccion" ToRole="Accion" />
+          <NavigationProperty Name="Rol" Relationship="RouCityModel.FK_RolAccion_Rol" FromRole="RolAccion" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="Valoracion">
+          <Key>
+            <PropertyRef Name="idvaloracion" />
+          </Key>
+          <Property Name="idvaloracion" Type="Int32" Nullable="false" />
+          <Property Name="idusuario" Type="Int32" Nullable="false" />
+          <Property Name="idviaje" Type="Int32" Nullable="false" />
+          <Property Name="valoracionEstrellas" Type="Int32" Nullable="false" />
+          <Property Name="reseña" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Viaje" Relationship="RouCityModel.FK_valoracion_viaje1" FromRole="Valoracion" ToRole="Viaje" />
+          <NavigationProperty Name="Usuario" Relationship="RouCityModel.FK_valoracion_Usuario" FromRole="Valoracion" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Viaje">
+          <Key>
+            <PropertyRef Name="idViaje" />
+          </Key>
+          <Property Name="idViaje" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUChofer" Type="Int32" Nullable="false" />
+          <Property Name="latOrigen" Type="Decimal" Nullable="false" Precision="18" Scale="15" />
+          <Property Name="longOrigen" Type="Decimal" Nullable="false" Precision="18" Scale="15" />
+          <Property Name="latDestino" Type="Decimal" Nullable="false" Precision="18" Scale="15" />
+          <Property Name="longDestino" Type="Decimal" Nullable="false" Precision="18" Scale="15" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="precio" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="hora" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="cocheDescripcion" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="asientosDisponibles" Type="Int32" Nullable="false" />
+          <Property Name="calificacion" Type="Int16" />
+          <Property Name="comentario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cantParada" Type="Int16" />
+          <Property Name="tiempoParada" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="estado" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Pago" Relationship="RouCityModel.FK_Pago_viaje" FromRole="Viaje" ToRole="Pago" />
+          <NavigationProperty Name="Valoracion" Relationship="RouCityModel.FK_valoracion_viaje1" FromRole="Viaje" ToRole="Valoracion" />
+          <NavigationProperty Name="ViajePasajero" Relationship="RouCityModel.FK_viajePasajero_viaje" FromRole="Viaje" ToRole="ViajePasajero" />
+          <NavigationProperty Name="Usuario" Relationship="RouCityModel.FK_viaje_Usuario" FromRole="Viaje" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="ViajePasajero">
+          <Key>
+            <PropertyRef Name="idViaje" />
+            <PropertyRef Name="idPasajero" />
+          </Key>
+          <Property Name="idViaje" Type="Int32" Nullable="false" />
+          <Property Name="idPasajero" Type="Int32" Nullable="false" />
+          <Property Name="confirmado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Viaje" Relationship="RouCityModel.FK_viajePasajero_viaje" FromRole="ViajePasajero" ToRole="Viaje" />
+          <NavigationProperty Name="Usuario" Relationship="RouCityModel.FK_viajePasajero_Usuario" FromRole="ViajePasajero" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_Accion_Modulo">
+          <End Type="RouCityModel.Modulo" Role="Modulo" Multiplicity="1" />
+          <End Type="RouCityModel.Accion" Role="Accion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modulo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Accion">
+              <PropertyRef Name="idModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolAccion_Accion">
+          <End Type="RouCityModel.Accion" Role="Accion" Multiplicity="0..1" />
+          <End Type="RouCityModel.RolAccion" Role="RolAccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RolAccion">
+              <PropertyRef Name="idAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pago_viaje">
+          <End Type="RouCityModel.Viaje" Role="Viaje" Multiplicity="1" />
+          <End Type="RouCityModel.Pago" Role="Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Viaje">
+              <PropertyRef Name="idViaje" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="idViaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolAccion_Rol">
+          <End Type="RouCityModel.Rol" Role="Rol" Multiplicity="0..1" />
+          <End Type="RouCityModel.RolAccion" Role="RolAccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="RolAccion">
+              <PropertyRef Name="idRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_valoracion_viaje1">
+          <End Type="RouCityModel.Viaje" Role="Viaje" Multiplicity="1" />
+          <End Type="RouCityModel.Valoracion" Role="Valoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Viaje">
+              <PropertyRef Name="idViaje" />
+            </Principal>
+            <Dependent Role="Valoracion">
+              <PropertyRef Name="idviaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_viajePasajero_viaje">
+          <End Type="RouCityModel.Viaje" Role="Viaje" Multiplicity="1" />
+          <End Type="RouCityModel.ViajePasajero" Role="ViajePasajero" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Viaje">
+              <PropertyRef Name="idViaje" />
+            </Principal>
+            <Dependent Role="ViajePasajero">
+              <PropertyRef Name="idViaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="apellidos" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="pass" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="fechaAlta" Type="DateTime" Precision="3" />
+          <Property Name="sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="fechaNacimiento" Type="DateTime" Precision="3" />
+          <Property Name="Telefono" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="descripción" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="preferencia" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="numeroCuenta" Type="String" MaxLength="24" FixedLength="true" Unicode="false" />
+          <Property Name="hash" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="confirmado" Type="Boolean" Nullable="false" />
+          <Property Name="idrol" Type="Int32" Nullable="false" />
+          <Property Name="baja" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Pago" Relationship="RouCityModel.FK_Pago_Usuario" FromRole="Usuario" ToRole="Pago" />
+          <NavigationProperty Name="Rol" Relationship="RouCityModel.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+          <NavigationProperty Name="Valoracion" Relationship="RouCityModel.FK_valoracion_Usuario" FromRole="Usuario" ToRole="Valoracion" />
+          <NavigationProperty Name="Viaje" Relationship="RouCityModel.FK_viaje_Usuario" FromRole="Usuario" ToRole="Viaje" />
+          <NavigationProperty Name="ViajePasajero" Relationship="RouCityModel.FK_viajePasajero_Usuario" FromRole="Usuario" ToRole="ViajePasajero" />
+        </EntityType>
+        <Association Name="FK_Pago_Usuario">
+          <End Type="RouCityModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="RouCityModel.Pago" Role="Pago" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Pago">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Usuario_Rol">
+          <End Type="RouCityModel.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="RouCityModel.Usuario" Role="Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="idRol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idrol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_valoracion_Usuario">
+          <End Type="RouCityModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="RouCityModel.Valoracion" Role="Valoracion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Valoracion">
+              <PropertyRef Name="idusuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_viaje_Usuario">
+          <End Type="RouCityModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="RouCityModel.Viaje" Role="Viaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Viaje">
+              <PropertyRef Name="idUChofer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_viajePasajero_Usuario">
+          <End Type="RouCityModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="RouCityModel.ViajePasajero" Role="ViajePasajero" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ViajePasajero">
+              <PropertyRef Name="idPasajero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RouCityModelStoreContainer" CdmEntityContainer="RouCityEntities">
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="RouCityModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Accion">
+            <EntityTypeMapping TypeName="RouCityModel.Accion">
+              <MappingFragment StoreEntitySet="Accion">
+                <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Modulo">
+            <EntityTypeMapping TypeName="RouCityModel.Modulo">
+              <MappingFragment StoreEntitySet="Modulo">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pago">
+            <EntityTypeMapping TypeName="RouCityModel.Pago">
+              <MappingFragment StoreEntitySet="Pago">
+                <ScalarProperty Name="motivoAnulado" ColumnName="motivoAnulado" />
+                <ScalarProperty Name="Anulado" ColumnName="Anulado" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idViaje" ColumnName="idViaje" />
+                <ScalarProperty Name="tipoPasarela" ColumnName="tipoPasarela" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="importe" ColumnName="importe" />
+                <ScalarProperty Name="idPago" ColumnName="idPago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolAccion">
+            <EntityTypeMapping TypeName="RouCityModel.RolAccion">
+              <MappingFragment StoreEntitySet="RolAccion">
+                <ScalarProperty Name="idAccion" ColumnName="idAccion" />
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Valoracion">
+            <EntityTypeMapping TypeName="RouCityModel.Valoracion">
+              <MappingFragment StoreEntitySet="Valoracion">
+                <ScalarProperty Name="reseña" ColumnName="reseña" />
+                <ScalarProperty Name="valoracionEstrellas" ColumnName="valoracionEstrellas" />
+                <ScalarProperty Name="idviaje" ColumnName="idviaje" />
+                <ScalarProperty Name="idusuario" ColumnName="idusuario" />
+                <ScalarProperty Name="idvaloracion" ColumnName="idvaloracion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Viaje">
+            <EntityTypeMapping TypeName="RouCityModel.Viaje">
+              <MappingFragment StoreEntitySet="Viaje">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="tiempoParada" ColumnName="tiempoParada" />
+                <ScalarProperty Name="cantParada" ColumnName="cantParada" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="calificacion" ColumnName="calificacion" />
+                <ScalarProperty Name="asientosDisponibles" ColumnName="asientosDisponibles" />
+                <ScalarProperty Name="cocheDescripcion" ColumnName="cocheDescripcion" />
+                <ScalarProperty Name="hora" ColumnName="hora" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="longDestino" ColumnName="longDestino" />
+                <ScalarProperty Name="latDestino" ColumnName="latDestino" />
+                <ScalarProperty Name="longOrigen" ColumnName="longOrigen" />
+                <ScalarProperty Name="latOrigen" ColumnName="latOrigen" />
+                <ScalarProperty Name="idUChofer" ColumnName="idUChofer" />
+                <ScalarProperty Name="idViaje" ColumnName="idViaje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViajePasajero">
+            <EntityTypeMapping TypeName="RouCityModel.ViajePasajero">
+              <MappingFragment StoreEntitySet="ViajePasajero">
+                <ScalarProperty Name="confirmado" ColumnName="confirmado" />
+                <ScalarProperty Name="idPasajero" ColumnName="idPasajero" />
+                <ScalarProperty Name="idViaje" ColumnName="idViaje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="RouCityModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="baja" ColumnName="baja" />
+                <ScalarProperty Name="idrol" ColumnName="idrol" />
+                <ScalarProperty Name="confirmado" ColumnName="confirmado" />
+                <ScalarProperty Name="hash" ColumnName="hash" />
+                <ScalarProperty Name="numeroCuenta" ColumnName="numeroCuenta" />
+                <ScalarProperty Name="preferencia" ColumnName="preferencia" />
+                <ScalarProperty Name="descripción" ColumnName="descripción" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

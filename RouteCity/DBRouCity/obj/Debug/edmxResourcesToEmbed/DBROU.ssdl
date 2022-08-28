@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RouCityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Accion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="idModulo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Modulo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pago">
+    <Key>
+      <PropertyRef Name="idPago" />
+    </Key>
+    <Property Name="idPago" Type="int" Nullable="false" />
+    <Property Name="importe" Type="decimal" Precision="9" Scale="2" />
+    <Property Name="fecha" Type="date" Nullable="false" />
+    <Property Name="tipoPasarela" Type="char" MaxLength="1" />
+    <Property Name="idViaje" Type="int" Nullable="false" />
+    <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Anulado" Type="bit" />
+    <Property Name="motivoAnulado" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="idRol" />
+    </Key>
+    <Property Name="idRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RolAccion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idRol" Type="int" />
+    <Property Name="idAccion" Type="int" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="apellidos" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="foto" Type="image" />
+    <Property Name="email" Type="varchar" MaxLength="75" Nullable="false" />
+    <Property Name="pass" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="fechaAlta" Type="datetime" />
+    <Property Name="sexo" Type="char" MaxLength="1" />
+    <Property Name="fechaNacimiento" Type="datetime" />
+    <Property Name="Telefono" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="descripción" Type="varchar" MaxLength="250" />
+    <Property Name="preferencia" Type="varchar" MaxLength="250" />
+    <Property Name="numeroCuenta" Type="char" MaxLength="24" />
+    <Property Name="hash" Type="varchar" MaxLength="100" />
+    <Property Name="confirmado" Type="bit" Nullable="false" />
+    <Property Name="idrol" Type="int" Nullable="false" />
+    <Property Name="baja" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Valoracion">
+    <Key>
+      <PropertyRef Name="idvaloracion" />
+    </Key>
+    <Property Name="idvaloracion" Type="int" Nullable="false" />
+    <Property Name="idusuario" Type="int" Nullable="false" />
+    <Property Name="idviaje" Type="int" Nullable="false" />
+    <Property Name="valoracionEstrellas" Type="int" Nullable="false" />
+    <Property Name="reseña" Type="varchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Viaje">
+    <Key>
+      <PropertyRef Name="idViaje" />
+    </Key>
+    <Property Name="idViaje" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idUChofer" Type="int" Nullable="false" />
+    <Property Name="latOrigen" Type="decimal" Precision="18" Scale="15" Nullable="false" />
+    <Property Name="longOrigen" Type="decimal" Precision="18" Scale="15" Nullable="false" />
+    <Property Name="latDestino" Type="decimal" Precision="18" Scale="15" Nullable="false" />
+    <Property Name="longDestino" Type="decimal" Precision="18" Scale="15" Nullable="false" />
+    <Property Name="fecha" Type="datetime" Nullable="false" />
+    <Property Name="precio" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="hora" Type="time" Precision="7" Nullable="false" />
+    <Property Name="cocheDescripcion" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="asientosDisponibles" Type="int" Nullable="false" />
+    <Property Name="calificacion" Type="smallint" />
+    <Property Name="comentario" Type="text" />
+    <Property Name="cantParada" Type="smallint" />
+    <Property Name="tiempoParada" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="estado" Type="char" MaxLength="3" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ViajePasajero">
+    <Key>
+      <PropertyRef Name="idViaje" />
+      <PropertyRef Name="idPasajero" />
+    </Key>
+    <Property Name="idViaje" Type="int" Nullable="false" />
+    <Property Name="idPasajero" Type="int" Nullable="false" />
+    <Property Name="confirmado" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Accion_Modulo">
+    <End Role="Modulo" Type="Self.Modulo" Multiplicity="1" />
+    <End Role="Accion" Type="Self.Accion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Modulo">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Accion">
+        <PropertyRef Name="idModulo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pago_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Pago">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pago_viaje">
+    <End Role="Viaje" Type="Self.Viaje" Multiplicity="1" />
+    <End Role="Pago" Type="Self.Pago" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Viaje">
+        <PropertyRef Name="idViaje" />
+      </Principal>
+      <Dependent Role="Pago">
+        <PropertyRef Name="idViaje" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolAccion_Accion">
+    <End Role="Accion" Type="Self.Accion" Multiplicity="0..1" />
+    <End Role="RolAccion" Type="Self.RolAccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accion">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="RolAccion">
+        <PropertyRef Name="idAccion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolAccion_Rol">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+    <End Role="RolAccion" Type="Self.RolAccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="idRol" />
+      </Principal>
+      <Dependent Role="RolAccion">
+        <PropertyRef Name="idRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_Rol">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="idRol" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="idrol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_valoracion_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Valoracion" Type="Self.Valoracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Valoracion">
+        <PropertyRef Name="idusuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_valoracion_viaje1">
+    <End Role="Viaje" Type="Self.Viaje" Multiplicity="1" />
+    <End Role="Valoracion" Type="Self.Valoracion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Viaje">
+        <PropertyRef Name="idViaje" />
+      </Principal>
+      <Dependent Role="Valoracion">
+        <PropertyRef Name="idviaje" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_viaje_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Viaje" Type="Self.Viaje" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Viaje">
+        <PropertyRef Name="idUChofer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_viajePasajero_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="ViajePasajero" Type="Self.ViajePasajero" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="ViajePasajero">
+        <PropertyRef Name="idPasajero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_viajePasajero_viaje">
+    <End Role="Viaje" Type="Self.Viaje" Multiplicity="1" />
+    <End Role="ViajePasajero" Type="Self.ViajePasajero" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Viaje">
+        <PropertyRef Name="idViaje" />
+      </Principal>
+      <Dependent Role="ViajePasajero">
+        <PropertyRef Name="idViaje" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RouCityModelStoreContainer">
+    <EntitySet Name="Accion" EntityType="Self.Accion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Modulo" EntityType="Self.Modulo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pago" EntityType="Self.Pago" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RolAccion" EntityType="Self.RolAccion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Valoracion" EntityType="Self.Valoracion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Viaje" EntityType="Self.Viaje" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ViajePasajero" EntityType="Self.ViajePasajero" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Accion_Modulo" Association="Self.FK_Accion_Modulo">
+      <End Role="Modulo" EntitySet="Modulo" />
+      <End Role="Accion" EntitySet="Accion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pago_Usuario" Association="Self.FK_Pago_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Pago" EntitySet="Pago" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pago_viaje" Association="Self.FK_Pago_viaje">
+      <End Role="Viaje" EntitySet="Viaje" />
+      <End Role="Pago" EntitySet="Pago" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolAccion_Accion" Association="Self.FK_RolAccion_Accion">
+      <End Role="Accion" EntitySet="Accion" />
+      <End Role="RolAccion" EntitySet="RolAccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolAccion_Rol" Association="Self.FK_RolAccion_Rol">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="RolAccion" EntitySet="RolAccion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Rol" Association="Self.FK_Usuario_Rol">
+      <End Role="Rol" EntitySet="Rol" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_valoracion_Usuario" Association="Self.FK_valoracion_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Valoracion" EntitySet="Valoracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_valoracion_viaje1" Association="Self.FK_valoracion_viaje1">
+      <End Role="Viaje" EntitySet="Viaje" />
+      <End Role="Valoracion" EntitySet="Valoracion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_viaje_Usuario" Association="Self.FK_viaje_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Viaje" EntitySet="Viaje" />
+    </AssociationSet>
+    <AssociationSet Name="FK_viajePasajero_Usuario" Association="Self.FK_viajePasajero_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="ViajePasajero" EntitySet="ViajePasajero" />
+    </AssociationSet>
+    <AssociationSet Name="FK_viajePasajero_viaje" Association="Self.FK_viajePasajero_viaje">
+      <End Role="Viaje" EntitySet="Viaje" />
+      <End Role="ViajePasajero" EntitySet="ViajePasajero" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
