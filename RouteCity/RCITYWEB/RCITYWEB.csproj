@@ -203,7 +203,6 @@
     <Content Include="Content\img\usuario3.jpg" />
     <Content Include="Content\img\viajeCarretera.jpg" />
     <Content Include="Content\img\viajeConcierto.jpg" />
-    <Content Include="Content\img\zapatoCoche.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

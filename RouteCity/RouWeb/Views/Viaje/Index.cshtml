@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Viaje solicitado</h2>
+
+
+
+<div class="form-horizontal">
+    <h4>Usuario</h4>
+    <hr />
+
+
+
+    //id-chofer, id-pasajero, precio,ciudadInicio, ciudad de destino
+    <button class="btn  btn-outline-secondary" type="button" id="pagar " onclick="pagar()">Pagar</button>
+
+</div>
+<script>
+   function pagar() {
+
+    console.log("HOLA")
+    var body = {
+        precio: 70,
+        vaje: "Madrid-Barcelona"
+    }
+
+
+
+    jQuery.ajax({
+        url: '@Url.Action("Paypal", "pagos")',
+        type: "POST",
+        data: JSON.stringify(body),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+
+        console.log(data);
+
+        if (data.status) {
+
+        var jsonresult = JSON.parse(data.respuesta);
+
+        console.log(jsonresult);
+
+        var links = jsonresult.links;
+
+        var resultado = links.find(item => item.rel === "approve")
+
+        window.location.href = resultado.href
+
+        /*console.log(links)*/
+        /*console.log(resultado)*/
+        } else {
+        alert("Vuelva a intentarlo más tarde")
+        }
+
+
+        }
+        });
+
+
+    }
+</script>

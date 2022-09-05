@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html  lang="es" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Concerta tu Viaje</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+    <body class="d-flex flex-column h-100">
+        @*<div class="container-xl "></div>*@ 
+        <header class="d-flex flex-wrap row justify-content-between py-5">
+            <div class=" col-6">
+                <a href="@Url.Action("index","Home")">
+                    <img src="~/Content/img/logopqno.png" alt="Logo">
+                    <img src="~/Content/img/ImgNombre.png" alt="imagen">
+                </a>
+            </div>
+            <div class="col-6">
+                <a class="navbar-brand nombre-sitio d-lg-none fs-3 fw-bold text-uppercase" href="index.html">
+                    RouCity
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navegacion">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <ul class="nav navbar-nav  flex-md-row navbar-light justify-content-around" id="navegacion">
+                    <li class="nav-item">
+                        <i class="bi bi-car-front-fill"></i>
+                        @Html.ActionLink("Publica tu Viaje", "publicaViaje", "viaje", null, new { @class = "" })
+                    </li>
+                    <li class="dropdown">
+                        <button class="btn  btn-outline-success dropdown-toggle" type="button"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Área Personal  <i class="bi bi-person-circle"></i> 
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                @Html.ActionLink("Publicar Viaje", "Cerrar", "Login", null, new { @class = "dropdown-item" })
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item">Perfil</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider"/>
+                            </li>
+                            <li>
+                                <a href="~/Login/Cerrar" class="dropdown-item">Cerrar</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Login", "login", "login", null, new { @class = "" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Registro", "registro", "login", null, new { @class = "nav-link text-success" })
+                    </li>
+                </ul>
+            </div>
+        </header>
+        @RenderBody()
+        <footer class="pt-5 mt-5 border-top">
+            <div class="container-xl mt-5">
+                <div class="row">
+                    <div class="col-md-4 mb-4 mb-md-0 text-center">
+                        <h3 class="mb-4">Categorías</h3>
+                        <nav class="d-flex flex-column">
+                            <a class="text-dark text-decoration-none" href="#">Cocina</a>
+                            <a class="text-dark text-decoration-none" href="#">Oficina</a>
+                            <a class="text-dark text-decoration-none" href="#">Jardín</a>
+                            <a class="text-dark text-decoration-none" href="#">Cochera</a>
+                            <a class="text-dark text-decoration-none" href="#">Dormitorios</a>
+                        </nav>
+                    </div>
+
+                    <div class="col-md-4 mb-4 mb-md-0 text-center">
+                        <h3 class="mb-4">Sobre Nosotros</h3>
+                        <nav class="d-flex flex-column">
+                            <a class="text-dark text-decoration-none" href="#">Nuestra Historia</a>
+                            <a class="text-dark text-decoration-none" href="#">Misión, Visión y Valores</a>
+                            <a class="text-dark text-decoration-none" href="#">Carreras</a>
+                            <a class="text-dark text-decoration-none" href="#">Política de Privacidad</a>
+                            <a class="text-dark text-decoration-none" href="#">Términos del Servicio</a>
+                        </nav>
+                    </div>
+
+                    <div class="col-md-4 mb-4 mb-md-0 text-center">
+                        <h3 class="mb-4">Soporte</h3>
+                        <nav class="d-flex flex-column">
+                            <a class="text-dark text-decoration-none" href="#">Preguntas Frecuentes</a>
+                            <a class="text-dark text-decoration-none" href="#">Ayuda en Línea</a>
+                            <a class="text-dark text-decoration-none" href="#">Confianza y Seguridad</a>
+                        </nav>
+                    </div>
+                </div>
+
+                <p class="mt-5 text-center fs-2">
+                    Copyright &copy; @DateTime.Now.Year - RouteCity. Todos los derechos
+                    reservados.
+                </p>
+            </div>
+        </footer>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+
+</html>

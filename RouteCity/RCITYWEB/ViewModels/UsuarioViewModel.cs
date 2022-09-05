@@ -17,7 +17,6 @@ namespace RCITYWEB.ViewModels
         public string Descripción { get; set; }
         public string Preferencia { get; set; }
         public string NumeroCuenta { get; set; }
-        public string Hash { get; set; }
         public int idRol { get; set; }
         public bool Confirmado { get; set; }
         public bool baja { get; set; }

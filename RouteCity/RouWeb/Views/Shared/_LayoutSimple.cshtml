@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Concerta tu Viaje</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+    @Styles.Render("~/Content/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+</head>
+<body>
+    
+    <header class="py-5">
+        @*Logotipo + Menu*@
+        <div class="row">
+            <div>
+                <a href="@Url.Action("index","Home")">
+                    <img src="~/Content/img/logopqno.png" alt="Logo">
+                </a>
+                <h1 class="">
+                    Rou
+                    <span class="text-success">City</span>
+                </h1>
+            </div>
+        </div>
+
+        <div class="navbar navbar-expand-lg container navbar-light ">
+            <a class="navbar-brand nombre-sitio d-lg-none fs-2 fw-bold text-uppercase" href="index.html">
+                Tienda Muebles
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navegacion">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="navegacion" class="collapse navbar-collapse">
+                <nav class="navbar-nav container d-flex flex-md-row justify-content-md-between text-center">
+                    <a class="text-dark text-decoration-none" href="index.html">Inicio</a>
+                    <a class="text-dark text-decoration-none" href="nosotros.html">Nosotros</a>
+                    <a class="text-dark text-decoration-none" href="tienda.html">Tienda</a>
+                    <a class="text-dark text-decoration-none" href="blog.html">Blog</a>
+                    <a class="text-dark text-decoration-none" href="galeria.html">Galería</a>
+                    <a class="text-dark text-decoration-none" href="contacto.html">Contacto</a>
+                </nav>
+            </div>
+
+            <!--<div class="" id="navegacion">-->
+                @*Menu*@
+                <!--<nav class="navbar col-md-12 col-lg-auto">
+                    <div class="">
+                        <i class="icono icon-bus"></i>
+                        @Html.ActionLink("Publicar Viaje", "Index", "Home", null, new { @class = "" })
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn  btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Área Personal <span class="caret"></span></button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li>@Html.ActionLink("Publicar Viaje", "Cerrar", "Login", null, new { @class = " verde d-flex flex-row text-center" })</li>
+
+                            <li><a href="#" data-toggle="modal" data-target="#modal2">Perfil</a></li>
+                            <li><a href="~/Login/Cerrar" data-toggle="modal" data-target="#modal2">Cerrar</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="c-1 oscuro d-flex align-items-center">-->
+                        @*<i class="icono icon-bus"></i>*@
+                        <!--@Html.ActionLink("Login", "login", "login", null, new { @class = " btn btn-secondary p-2 mr-2" })
+                    </div>
+                    <div class="c-2 verde d-flex align-items-center">-->
+                        @*<i class="icono icon-user"></i>*@
+                        <!--@Html.ActionLink("Registro", "registro", "login", null, new { @class = " btn btn-secondary p-2 mr-2" })-->
+                        @*<button class="btn  btn-success p-2" type="button" id="registro">Registrate </button>*@
+                    <!--</div>
+
+                </nav>-->
+            </div>
+    </header>
+        @RenderBody()
+        <footer>
+            <div class="row">
+                <div class="col pt-3">
+                    <p class="text-center text-success m-0">
+                        Copyright &copy; @DateTime.Now.Year - RouteCity. todos los derechos
+                        reservados.
+                    </p>
+                    <ul class="list-unstyled d-flex flex-wrap flex-sm-nowrap justify-content-center m-0">
+                        <li class="p-2">
+                            <a href=""><small class="text-secondary">Politica de privacidad y aviso legal</small></a>
+                        </li>
+                        <li class="p-2">
+                            <a href=""><small class="text-secondary">Terminos de uso</small></a>
+                        </li>
+                        <li class="p-2">
+                            <a href=""><small class="text-secondary">Politica de calidad</small></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </footer>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+
+    
+
+</body>
+
+</html>
